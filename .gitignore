@@ -329,6 +329,6 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-RpgController/Library/
-RpgController/Packages/
-RpgController/Temp/
+CharacterController/Library/
+CharacterController/Packages/
+CharacterController/Temp/

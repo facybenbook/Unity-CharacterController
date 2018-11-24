@@ -19,7 +19,6 @@ namespace CharacterController
 		float horizontal;
 		float vertical;
 		float speed;
-		float jump;
 
 		bool isWalking;
 		bool isMoving;
@@ -43,7 +42,6 @@ namespace CharacterController
 		{
 			horizontal = Input.GetAxis ("Horizontal");
 			vertical = Input.GetAxis ("Vertical");
-			jump = Input.GetAxis ("Jump");
 
 			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{

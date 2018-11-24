@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{336029AA-1CEC-8215-3F2C-A55CEEC55492}</ProjectGuid>
+    <ProjectGuid>{5273C08D-A38A-0A9C-80F4-693BE42A6F3D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -61,21 +61,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CharacterController\CharacterMovement.cs" />
-    <Compile Include="Assets\Scripts\CharacterController\Controller.cs" />
-    <Compile Include="Assets\Scripts\Managers\Statics.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\BASE\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\TPS\Scripts\Camera\CameraHandler.cs" />
+    <Compile Include="Assets\TPS\Scripts\Character\CharacterMovement.cs" />
+    <Compile Include="Assets\TPS\Scripts\Character\Controller.cs" />
+    <Compile Include="Assets\TPS\Scripts\Properties\CameraConfig.cs" />
+    <Compile Include="Assets\TPS\Scripts\Properties\CharacterStatus.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>E:/ProgrammingCode/Git_rep/Unity_RPG_Controller/RpgController/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>E:/ProgrammingCode/Git_rep/Unity_RPG_Controller/RpgController/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>E:/ProgrammingCode/Git_rep/Unity_RPG_Controller/RpgController/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>E:/ProgrammingCode/Git_rep/Unity_RPG_Controller/RpgController/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Programms/Unity3D/2018.2.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

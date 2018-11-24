@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterController
+namespace TPS.CharacterController
 {
 	[RequireComponent(typeof(CharacterMovement))]
 	public class Controller : MonoBehaviour
