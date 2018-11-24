@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4654579620620476}
   m_Layer: 0
   m_Name: CameraPivot
-  m_TagString: Untagged
+  m_TagString: CameraPivot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98838f21351b7f142a047ee63d04dc6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 4652905880952908}
   cameraPivot: {fileID: 4654579620620476}
   character: {fileID: 0}
   characterStatus: {fileID: 11400000, guid: 622022950396a1a42a1f74801ffeb8cb, type: 2}

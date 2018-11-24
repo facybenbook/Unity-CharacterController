@@ -2135,10 +2135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10768736ed9398543a4a7ca01b645ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertical: 0
-  horizontal: 0
-  moveSpeed: 0
-  dampTime: 0.15
+  cameraHolderTransform: {fileID: 4692025829669426, guid: b55c822727b761d47a1e037ee719fa1b,
+    type: 2}
+  characterStatus: {fileID: 11400000, guid: 622022950396a1a42a1f74801ffeb8cb, type: 2}
+  turnSpeed: 5
 --- !u!136 &136245306368916070
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -5,18 +5,17 @@ namespace TPS.CameraController
 	public class CameraHandler : MonoBehaviour
 	{
 		#region References
-		public Transform cameraTransform;
+		private Transform cameraHolderTransform;
+		public Transform mainCameraTransform;
 		public Transform cameraPivot;
 		public Transform character;
 
-		private Transform cameraHolderTransform;
 
 		public CharacterStatus characterStatus;
 		public CameraConfig cameraConfig;
 		#endregion
 
 		#region Variables
-		private bool leftPivot;
 		private float deltaT;
 
 		private float mouseX;
@@ -29,6 +28,11 @@ namespace TPS.CameraController
 
 		private float Y_lookAngle;
 		private float X_lookAngle;
+		#endregion
+
+		#region Input Parameters
+		private const string MOUSE_X = "Mouse X";
+		private const string MOUSE_Y = "Mouse Y";
 		#endregion
 
 		#region Unity Methods
@@ -44,7 +48,7 @@ namespace TPS.CameraController
 		#endregion
 
 		#region CameraHandler Methods
-		void FixedTick ()
+		private void FixedTick ()
 		{
 			deltaT = Time.deltaTime;
 
@@ -55,42 +59,72 @@ namespace TPS.CameraController
 			cameraHolderTransform.position = targetPosition;
 		}
 
-		void HandlePosition()
+		private void HandlePosition()
 		{
+			// Set the Camera position
 			float targetX = cameraConfig.normalXPos;
 			float targetY = cameraConfig.normalYPos;
 			float targetZ = cameraConfig.normalZPos;
 
+			// Switch aim and default camera state
 			if (characterStatus.isAiming)
 			{
 				targetX = cameraConfig.aimXPos;
 				targetZ = cameraConfig.aimZPos;
 			}
 
-			if (leftPivot)
+			// Go to left shoulder view
+			if (cameraConfig.lookFromLeft)
 			{
 				targetX = -targetX;
 			}
 
+
+			// X and Y position of the camera's pivot
 			Vector3 newPivotPositon = cameraPivot.localPosition;
 			newPivotPositon.x = targetX;
 			newPivotPositon.y = targetY;
 			cameraPivot.localPosition = newPivotPositon;
 
-			Vector3 newCameraPosition = cameraTransform.localPosition;
+			// Z position of the camera
+			Vector3 newCameraPosition = mainCameraTransform.localPosition;
 			newCameraPosition.z = targetZ;
 
 			float cameraDeltaTime = deltaT * cameraConfig.pivotSpeed;
 
+			// Follow to character
 			cameraPivot.localPosition = Vector3.Lerp (cameraPivot.localPosition, newCameraPosition, cameraDeltaTime);
-			cameraTransform.localPosition = Vector3.Lerp (cameraTransform.localPosition, newCameraPosition, cameraDeltaTime);
+			mainCameraTransform.localPosition = Vector3.Lerp (mainCameraTransform.localPosition, newCameraPosition, cameraDeltaTime);
 		}
 
-		void HandleRotation()
+		private void HandleRotation()
 		{
-			mouseX = Input.GetAxis ("Mouse X");
-			mouseY = Input.GetAxis ("Mouse Y");
+			// Get mouse position
+			mouseX = Input.GetAxis (MOUSE_X);
+			mouseY = Input.GetAxis (MOUSE_Y);
 
+			// Add additional smoothing if necessary or use default
+			AddCameraSmoothing ();
+
+			// Get angle of the camera view
+			X_lookAngle += smoothX * cameraConfig.XRotationSpeed;
+			Y_lookAngle -= smoothY * cameraConfig.YRotationSpeed;
+			Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYViewAngle, cameraConfig.maxYViewAngle);
+
+			// Switch between aim and default camera state
+			if (characterStatus.isAiming)
+			{
+				cameraHolderTransform.rotation = Quaternion.Euler(0f, X_lookAngle, 0f);
+				cameraPivot.localRotation = Quaternion.Euler (Y_lookAngle, 0f, 0f);
+			}
+			else
+			{
+				cameraHolderTransform.rotation = Quaternion.Euler (Y_lookAngle, X_lookAngle, 0f);
+			}
+		}
+
+		private void AddCameraSmoothing()
+		{
 			if (cameraConfig.turnSmoothX > 0)
 			{
 				smoothX = Mathf.SmoothDamp (smoothX, mouseX, ref smooth_XVelocity, cameraConfig.turnSmoothX);
@@ -107,20 +141,6 @@ namespace TPS.CameraController
 			else
 			{
 				smoothY = cameraConfig.defaultSmooth;
-			}
-
-			X_lookAngle += smoothX * cameraConfig.XRotationSpeed;
-			Y_lookAngle -= smoothY * cameraConfig.YRotationSpeed;
-			Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYViewAngle, cameraConfig.maxYViewAngle);
-
-			if (characterStatus.isAiming)
-			{
-				cameraHolderTransform.rotation = Quaternion.Euler(0f, X_lookAngle, 0f);
-				cameraPivot.localRotation = Quaternion.Euler (Y_lookAngle, 0f, 0f);
-			}
-			else
-			{
-				cameraHolderTransform.rotation = Quaternion.Euler (Y_lookAngle, X_lookAngle, 0f);
 			}
 		}
 		#endregion

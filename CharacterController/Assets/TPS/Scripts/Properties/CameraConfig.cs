@@ -17,6 +17,7 @@ namespace TPS.CameraController
 		public float pivotSpeed;
 		public float YRotationSpeed;
 		public float XRotationSpeed;
+		public float shiftToTheLeftSpeed;
 
 		[Header("Angle of the camera view")]
 		public float minYViewAngle;
@@ -26,6 +27,7 @@ namespace TPS.CameraController
 		public float normalZPos;
 		public float normalXPos;
 		public float normalYPos;
+		public bool lookFromLeft;
 
 		[Header("Camera Aim position")]
 		public float aimZPos;
