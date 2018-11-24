@@ -6,7 +6,7 @@ namespace TPS.CameraController
 	{
 		#region References
 		public Transform cameraTransform;
-		public Transform pivot;
+		public Transform cameraPivot;
 		public Transform character;
 
 		private Transform cameraHolderTransform;
@@ -16,20 +16,19 @@ namespace TPS.CameraController
 		#endregion
 
 		#region Variables
-		public bool leftPivot;
-		public float delta;
+		private bool leftPivot;
+		private float deltaT;
 
-		public float mouseX;
-		public float mouseY;
+		private float mouseX;
+		private float mouseY;
 
-		private float defaultSmooth = 0.1f;
-		public float smoothX;
-		public float smoothY;
-		public float smooth_XVelocity;
-		public float smooth_YVelocity;
+		private float smoothX;
+		private float smoothY;
+		private float smooth_XVelocity;
+		private float smooth_YVelocity;
 
-		public float Y_lookAngle;
-		public float X_lookAngle;
+		private float Y_lookAngle;
+		private float X_lookAngle;
 		#endregion
 
 		#region Unity Methods
@@ -47,7 +46,7 @@ namespace TPS.CameraController
 		#region CameraHandler Methods
 		void FixedTick ()
 		{
-			delta = Time.deltaTime;
+			deltaT = Time.deltaTime;
 
 			HandlePosition ();
 			HandleRotation ();
@@ -73,17 +72,17 @@ namespace TPS.CameraController
 				targetX = -targetX;
 			}
 
-			Vector3 newPivotPositon = pivot.localPosition;
+			Vector3 newPivotPositon = cameraPivot.localPosition;
 			newPivotPositon.x = targetX;
 			newPivotPositon.y = targetY;
-			pivot.localPosition = newPivotPositon;
+			cameraPivot.localPosition = newPivotPositon;
 
 			Vector3 newCameraPosition = cameraTransform.localPosition;
 			newCameraPosition.z = targetZ;
 
-			float cameraDeltaTime = delta * cameraConfig.pivotSpeed;
+			float cameraDeltaTime = deltaT * cameraConfig.pivotSpeed;
 
-			pivot.localPosition = Vector3.Lerp (pivot.localPosition, newCameraPosition, cameraDeltaTime);
+			cameraPivot.localPosition = Vector3.Lerp (cameraPivot.localPosition, newCameraPosition, cameraDeltaTime);
 			cameraTransform.localPosition = Vector3.Lerp (cameraTransform.localPosition, newCameraPosition, cameraDeltaTime);
 		}
 
@@ -98,7 +97,7 @@ namespace TPS.CameraController
 			}
 			else
 			{
-				smoothX = defaultSmooth;
+				smoothX = cameraConfig.defaultSmooth;
 			}
 
 			if (cameraConfig.turnSmoothY > 0)
@@ -107,17 +106,22 @@ namespace TPS.CameraController
 			}
 			else
 			{
-				smoothY = defaultSmooth;
+				smoothY = cameraConfig.defaultSmooth;
 			}
 
+			X_lookAngle += smoothX * cameraConfig.XRotationSpeed;
+			Y_lookAngle -= smoothY * cameraConfig.YRotationSpeed;
+			Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYViewAngle, cameraConfig.maxYViewAngle);
 
-			Y_lookAngle += smoothX * cameraConfig.YRotationSpeed;
-			Quaternion targetRotation = Quaternion.Euler (0, Y_lookAngle, 0);
-			cameraHolderTransform.rotation = targetRotation;
-
-			X_lookAngle -= smoothY * cameraConfig.YRotationSpeed;
-			X_lookAngle = Mathf.Clamp (X_lookAngle, cameraConfig.minXViewAngle, cameraConfig.maxXViewAngle);
-			pivot.localRotation = Quaternion.Euler (X_lookAngle, 0, 0);
+			if (characterStatus.isAiming)
+			{
+				cameraHolderTransform.rotation = Quaternion.Euler(0f, X_lookAngle, 0f);
+				cameraPivot.localRotation = Quaternion.Euler (Y_lookAngle, 0f, 0f);
+			}
+			else
+			{
+				cameraHolderTransform.rotation = Quaternion.Euler (Y_lookAngle, X_lookAngle, 0f);
+			}
 		}
 		#endregion
 	}

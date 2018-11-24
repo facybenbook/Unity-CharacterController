@@ -11,15 +11,16 @@ namespace TPS.CameraController
 		[Header("Camera Turn Smoothing")]
 		public float turnSmoothX;
 		public float turnSmoothY;
+		public float defaultSmooth = 0.1f;
 
 		[Header("Rotation Speed")]
 		public float pivotSpeed;
 		public float YRotationSpeed;
-		public float XRotationspeed;
+		public float XRotationSpeed;
 
 		[Header("Angle of the camera view")]
-		public float minXViewAngle;
-		public float maxXViewAngle;
+		public float minYViewAngle;
+		public float maxYViewAngle;
 
 		[Header("Camera Position")]
 		public float normalZPos;

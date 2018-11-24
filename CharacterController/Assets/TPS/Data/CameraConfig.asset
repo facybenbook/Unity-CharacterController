@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   cameraHolderMoveSpeed: 0.2
-  turnSmoothX: 0.01
-  turnSmoothY: 0.1
+  turnSmoothX: 0.1
+  turnSmoothY: 0.13
+  defaultSmooth: 0.1
   pivotSpeed: 9
-  YRotationSpeed: 4.5
-  XRotationspeed: 7
-  minXViewAngle: -35
-  maxXViewAngle: 50
+  YRotationSpeed: 4
+  XRotationSpeed: 7
+  minYViewAngle: -15
+  maxYViewAngle: 50
   normalZPos: -1.72
   normalXPos: 0.6
   normalYPos: 1.4
