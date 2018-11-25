@@ -30,7 +30,8 @@ namespace TPS.CameraController
 		public bool lookFromLeft;
 
 		[Header("Camera Aim position")]
-		public float aimZPos;
+		public float aimYPos;
 		public float aimXPos;
+		public float aimZPos;
 	}
 }

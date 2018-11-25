@@ -63,8 +63,11 @@
   <ItemGroup>
     <Compile Include="Assets\BASE\Scripts\PlayerController.cs" />
     <Compile Include="Assets\TPS\Scripts\Camera\CameraHandler.cs" />
+    <Compile Include="Assets\TPS\Scripts\Character\CharacterAnimation.cs" />
+    <Compile Include="Assets\TPS\Scripts\Character\CharacterInput.cs" />
     <Compile Include="Assets\TPS\Scripts\Character\CharacterMovement.cs" />
     <Compile Include="Assets\TPS\Scripts\Character\Controller.cs" />
+    <Compile Include="Assets\TPS\Scripts\Manager\Statics.cs" />
     <Compile Include="Assets\TPS\Scripts\Properties\CameraConfig.cs" />
     <Compile Include="Assets\TPS\Scripts\Properties\CharacterStatus.cs" />
     <Reference Include="UnityEditor.StandardEvents">

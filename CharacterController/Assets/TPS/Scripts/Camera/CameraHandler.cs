@@ -30,11 +30,6 @@ namespace TPS.CameraController
 		private float X_lookAngle;
 		#endregion
 
-		#region Input Parameters
-		private const string MOUSE_X = "Mouse X";
-		private const string MOUSE_Y = "Mouse Y";
-		#endregion
-
 		#region Unity Methods
 		private void Awake ()
 		{
@@ -70,6 +65,7 @@ namespace TPS.CameraController
 			if (characterStatus.isAiming)
 			{
 				targetX = cameraConfig.aimXPos;
+				targetY = cameraConfig.aimYPos;
 				targetZ = cameraConfig.aimZPos;
 			}
 
@@ -100,8 +96,8 @@ namespace TPS.CameraController
 		private void HandleRotation()
 		{
 			// Get mouse position
-			mouseX = Input.GetAxis (MOUSE_X);
-			mouseY = Input.GetAxis (MOUSE_Y);
+			mouseX = Input.GetAxis (Statics.Mouse_xInput);
+			mouseY = Input.GetAxis (Statics.Mouse_yInput);
 
 			// Add additional smoothing if necessary or use default
 			AddCameraSmoothing ();

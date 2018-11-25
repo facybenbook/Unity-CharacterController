@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAiming: 0
   isSprint: 0
-  isGround: 0
+  isGround: 1
+  isWeapon: 1

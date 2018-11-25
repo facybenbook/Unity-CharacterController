@@ -9,5 +9,6 @@ namespace TPS.CameraController
 		public bool isAiming;
 		public bool isSprint;
 		public bool isGround;
+		public bool isWeapon;
 	}
 }

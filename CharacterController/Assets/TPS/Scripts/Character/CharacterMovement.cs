@@ -8,7 +8,6 @@ namespace TPS.CharacterController
 	public class CharacterMovement : MonoBehaviour
 	{
 		#region References
-		private Animator animator;
 		public Transform cameraHolderTransform;
 		public CharacterStatus characterStatus;
 		public LayerMask groundMask;
@@ -17,10 +16,14 @@ namespace TPS.CharacterController
 		#region Variables
 		public float turnSpeed = 5f;
 
-		private float verticalInput;
-		private float horizontalInput;
-		private float movingSpeedFoAnimation;
-		private float dampTime = 0.15f;
+		[HideInInspector]
+		public bool isRun;
+		[HideInInspector]
+		public float verticalInput;
+		[HideInInspector]
+		public float horizontalInput;
+		[HideInInspector]
+		public float movingSpeedFoAnimation;
 
 		private float groundChekerRadius = 0.7f;
 
@@ -28,25 +31,23 @@ namespace TPS.CharacterController
 		private Vector3 moveDirection;
 		#endregion Variables
 
-		#region Animator Parameters
-		private const string VERTICAL = "Vertical";
-		private const string HORIZONTAL = "Horizontal";
-		#endregion Animator Parameters
-
-		public void Awake ()
+		
+		public void RunUpdate()
 		{
-			animator = GetComponent<Animator> ();
+			isRun = Input.GetButtonDown (Statics.Shift);
+			if (isRun)
+			{
+				characterStatus.isSprint = !characterStatus.isSprint;
+			}
 		}
 
 		public void MoveUpdate ()
 		{
 			// Get Input
-			verticalInput = Input.GetAxis (VERTICAL);
-			horizontalInput = Input.GetAxis (HORIZONTAL);
+			verticalInput = Input.GetAxis (Statics.Vertical);
+			horizontalInput = Input.GetAxis (Statics.Horizontal);
 			// Get an absolute value for animation
 			movingSpeedFoAnimation = Mathf.Clamp01 (Mathf.Abs (verticalInput) + Mathf.Abs (horizontalInput));
-
-			animator.SetFloat (VERTICAL, movingSpeedFoAnimation, dampTime, Time.deltaTime);
 
 			// Move forward to the camera view
 			Vector3 targetMoveDirection = cameraHolderTransform.forward * verticalInput;

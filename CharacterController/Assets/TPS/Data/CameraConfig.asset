@@ -18,10 +18,13 @@ MonoBehaviour:
   pivotSpeed: 9
   YRotationSpeed: 4
   XRotationSpeed: 7
+  shiftToTheLeftSpeed: 1
   minYViewAngle: -15
   maxYViewAngle: 50
   normalZPos: -1.72
-  normalXPos: 0.6
+  normalXPos: 0.4
   normalYPos: 1.4
-  aimZPos: -0.7
-  aimXPos: 0.6
+  lookFromLeft: 0
+  aimYPos: 1.8
+  aimXPos: 0.9
+  aimZPos: -0.5
