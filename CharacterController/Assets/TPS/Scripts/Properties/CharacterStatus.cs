@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TPS.CameraController
+namespace TPS.Configurations
 {
 	[CreateAssetMenu(menuName = "Character/CharacterStatus")]
 	public class CharacterStatus : ScriptableObject

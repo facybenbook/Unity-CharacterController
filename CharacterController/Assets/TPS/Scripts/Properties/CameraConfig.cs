@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TPS.CameraController
+namespace TPS.Configurations
 {
 	[CreateAssetMenu(menuName = "Camera/CameraConfig")]
 	public class CameraConfig : ScriptableObject
