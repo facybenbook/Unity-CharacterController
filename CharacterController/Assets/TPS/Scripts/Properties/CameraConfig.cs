@@ -23,6 +23,9 @@ namespace TPS.Configurations
 		public float minYViewAngle;
 		public float maxYViewAngle;
 
+		public float minYAimingViewAngle;
+		public float maxYAimingViewAngle;
+
 		[Header("Camera Position")]
 		public float normalZPos;
 		public float normalXPos;

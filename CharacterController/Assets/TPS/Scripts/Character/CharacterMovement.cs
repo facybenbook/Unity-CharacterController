@@ -24,7 +24,7 @@ namespace TPS.CharacterController
 		[HideInInspector]
 		public float horizontalInput;
 		[HideInInspector]
-		public float movingSpeedFoAnimation;
+		public float absoluteSpeed;
 
 		private float groundChekerRadius = 0.7f;
 
@@ -48,7 +48,7 @@ namespace TPS.CharacterController
 			verticalInput = Input.GetAxis (Statics.Vertical);
 			horizontalInput = Input.GetAxis (Statics.Horizontal);
 			// Get an absolute value for animation
-			movingSpeedFoAnimation = Mathf.Clamp01 (Mathf.Abs (verticalInput) + Mathf.Abs (horizontalInput));
+			absoluteSpeed = Mathf.Clamp01 (Mathf.Abs (verticalInput) + Mathf.Abs (horizontalInput));
 
 			// Move forward to the camera view
 			Vector3 targetMoveDirection = cameraHolderTransform.forward * verticalInput;

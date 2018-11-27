@@ -14,9 +14,15 @@ namespace TPS.CameraController
 
 		public CharacterStatus characterStatus;
 		public CameraConfig cameraConfig;
+		public Transform targetLook;
 		#endregion
 
 		#region Variables
+		public float targetLookDistanceToSky = 200f;
+		public float targetLookDistanceRaycast = 2000f;
+		public float targetLookSpeed = 40f;
+		public float targetLookSpeedToSky = 5f;
+
 		private float deltaT;
 
 		private float mouseX;
@@ -44,6 +50,8 @@ namespace TPS.CameraController
 		#endregion
 
 		#region CameraHandler Methods
+
+
 		private void FixedTick ()
 		{
 			deltaT = Time.deltaTime;
@@ -53,6 +61,24 @@ namespace TPS.CameraController
 
 			Vector3 targetPosition = Vector3.Lerp (cameraHolderTransform.position, character.position, cameraConfig.cameraHolderMoveSpeed);
 			cameraHolderTransform.position = targetPosition;
+			
+			TargetLook();
+		}
+
+		private void TargetLook()
+		{
+			Ray ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward * targetLookDistanceRaycast);
+			
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit))
+			{
+				targetLook.position = Vector3.Lerp(targetLook.position, hit.point, Time.deltaTime * targetLookSpeed);
+			}
+			else
+			{
+				targetLook.position = Vector3.Lerp(targetLook.position, targetLook.forward * targetLookDistanceToSky, Time.deltaTime * targetLookSpeedToSky);
+			}
+			
 		}
 
 		private void HandlePosition()
@@ -106,7 +132,15 @@ namespace TPS.CameraController
 			// Get angle of the camera view
 			X_lookAngle += smoothX * cameraConfig.XRotationSpeed;
 			Y_lookAngle -= smoothY * cameraConfig.YRotationSpeed;
-			Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYViewAngle, cameraConfig.maxYViewAngle);
+
+			if (!characterStatus.isAiming)
+			{
+				Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYViewAngle, cameraConfig.maxYViewAngle);
+			}
+			else
+			{
+				Y_lookAngle = Mathf.Clamp (Y_lookAngle, cameraConfig.minYAimingViewAngle, cameraConfig.maxYAimingViewAngle);
+			}
 
 			// Switch between aim and default camera state
 			if (characterStatus.isAiming)

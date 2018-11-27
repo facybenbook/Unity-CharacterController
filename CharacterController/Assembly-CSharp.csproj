@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BASE\Scripts\PlayerController.cs" />
      <Compile Include="Assets\TPS\Scripts\Camera\CameraHandler.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\CharacterAnimation.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\CharacterIK.cs" />
@@ -65,6 +64,9 @@
      <Compile Include="Assets\TPS\Scripts\Properties\CameraConfig.cs" />
      <Compile Include="Assets\TPS\Scripts\Properties\CharacterStatus.cs" />
      <Compile Include="Assets\TPS\Scripts\Properties\WeaponProperties.cs" />
+     <Compile Include="Assets\TPS\Scripts\UI\Crosshair.cs" />
+     <Compile Include="Assets\TPS\Scripts\Weapon\Bullet.cs" />
+     <Compile Include="Assets\TPS\Scripts\Weapon\Weapon.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

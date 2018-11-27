@@ -29,7 +29,7 @@ namespace TPS.CharacterController
 			if (!characterStatus.isAiming)
 			{
 				AnimationDefault ();
-				animator.SetFloat (Statics.Speed, characterMovement.movingSpeedFoAnimation);
+				animator.SetFloat (Statics.Speed, characterMovement.absoluteSpeed);
 			}
 
 			if (characterStatus.isAiming)
@@ -40,7 +40,7 @@ namespace TPS.CharacterController
 
 		private void AnimationDefault()
 		{
-			animator.SetFloat (Statics.Vertical, characterMovement.movingSpeedFoAnimation, dampTime, Time.deltaTime);
+			animator.SetFloat (Statics.Vertical, characterMovement.absoluteSpeed, dampTime, Time.deltaTime);
 		}
 
 		private void AnimationAiming()

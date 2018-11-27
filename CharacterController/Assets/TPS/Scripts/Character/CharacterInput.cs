@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TPS.CameraController;
 using TPS.Configurations;
+using TPS.WeaponController;
 
 namespace TPS.CharacterController
 {
@@ -8,6 +9,7 @@ namespace TPS.CharacterController
 	{
 		#region References
 		public CharacterStatus characterStatus;
+		public Weapon weapon;
 		#endregion
 
 		#region Input Variables
@@ -24,6 +26,11 @@ namespace TPS.CharacterController
 			else
 			{
 				characterStatus.isAiming = isAiming;
+			}
+
+			if (Input.GetMouseButtonDown(Statics.Mouse_leftClick))
+			{
+				weapon.Shoot();
 			}
 		}
 	}

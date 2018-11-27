@@ -81,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592168338325496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4739693705018270}
@@ -192,3 +192,7 @@ MonoBehaviour:
   character: {fileID: 0}
   characterStatus: {fileID: 11400000, guid: 622022950396a1a42a1f74801ffeb8cb, type: 2}
   cameraConfig: {fileID: 11400000, guid: 10d32019eba5d90438790c79886077d2, type: 2}
+  targetLook: {fileID: 4371261908614426}
+  targetLookDistanceDefault: 200
+  targetLookDistanceRaycast: 2000
+  targetLookSpeed: 40

@@ -83,6 +83,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4191794450878450}
+  - component: {fileID: 114416743777476866}
   m_Layer: 0
   m_Name: M4A1
   m_TagString: Untagged
@@ -317,3 +318,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1575630693934216}
   m_Mesh: {fileID: 4300002, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
+--- !u!114 &114416743777476866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825957205352760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98aecce9bd6b0a844a3c8de6d7919d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponProperties: {fileID: 11400000, guid: c635f44e010308048962b1d6327ac425, type: 2}
+  shootPoint: {fileID: 0}
+  targetLook: {fileID: 0}
+  cameraMain: {fileID: 0}
+  decal: {fileID: 0}
