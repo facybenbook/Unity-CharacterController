@@ -10,28 +10,68 @@ namespace TPS.CharacterController
 		#region References
 		public CharacterStatus characterStatus;
 		public Weapon weapon;
+		public Transform targetLook;
 		#endregion
 
 		#region Input Variables
 		public bool debugAiming;
 		public bool isAiming;
+
+		public float shoulderHeightPosition = 1.4f;
+
+		public bool canAim;
+		public float distanceToObstacle;
 		#endregion
+
+		private void Awake() 
+		{
+			targetLook = weapon.targetLook;
+		}
 
 		public void InputUpdate ()
 		{
-			if (!debugAiming)
+			RayCastAiming ();
+
+			if (Input.GetMouseButton(Statics.Mouse_rightClick) && canAim)
 			{
-				characterStatus.isAiming = Input.GetMouseButton (Statics.Mouse_rightClick);
+				characterStatus.isAiming = true;
+				characterStatus.isMoving = true;
 			}
-			else
+			if (Input.GetMouseButton(Statics.Mouse_rightClick) && !canAim)
 			{
-				characterStatus.isAiming = isAiming;
+				characterStatus.isAiming = false;
+				characterStatus.isMoving = true;
+			}
+			if (!Input.GetMouseButton(Statics.Mouse_rightClick))
+			{
+				characterStatus.isAiming = false;
+				characterStatus.isMoving = false;
 			}
 
-			if (Input.GetMouseButtonDown(Statics.Mouse_leftClick))
+			// if (!debugAiming)
+			// {
+			// 	characterStatus.isAiming = Input.GetMouseButton (Statics.Mouse_rightClick);
+			// }
+			// else
+			// {
+			// 	characterStatus.isAiming = isAiming;
+			// }
+
+			if (Input.GetMouseButtonDown(Statics.Mouse_leftClick) 
+				&& Input.GetMouseButton(Statics.Mouse_rightClick) 
+				&& canAim)
 			{
 				weapon.Shoot();
 			}
+		}
+
+		public void RayCastAiming()
+		{
+			Debug.DrawLine(transform.position + transform.up * shoulderHeightPosition, targetLook.position, Color.yellow);
+
+			distanceToObstacle = Vector3.Distance(transform.position + transform.up * shoulderHeightPosition, targetLook.position);
+			canAim = distanceToObstacle > 1.5f;
+
 		}
 	}
 }

@@ -6,15 +6,31 @@ namespace TPS.WeaponController
 {
 	public class Bullet : MonoBehaviour 
 	{
+		#region References
+		[Header("Decal Prefabs")]
 		public GameObject decalPrefab;
-		public float decalDeathTime = 5f;
-		public float bulletDeathTime = 0.5f;
+
+		[Header("Particle Effects")]
+		public GameObject metalHitEffect;
+		public GameObject sandHitEffect;			
+		public GameObject stoneHitEffect;
+		public GameObject woodHitEffect;
+		public GameObject[] meatHitEffects;
+		#endregion
+
+		#region Variables
+		[Header("Weapon parameters")]
+		public float decalDeathTime = 10f;
+		public float bulletDeathTime = 10f;
 		public float speed;
 		Vector3 previousBulletPosition;
+		#endregion
 
+		#region Unity Methods
 		private void Start() 
 		{
 			previousBulletPosition = transform.position;
+			Destroy(gameObject, bulletDeathTime);
 		}
 
 		void Update () 
@@ -22,6 +38,9 @@ namespace TPS.WeaponController
 			MoveBullet ();
 			BulletLinecast ();
 		}
+		#endregion
+
+		#region Bullet Methods
 
 		void MoveBullet()
 		{
@@ -35,18 +54,40 @@ namespace TPS.WeaponController
 			Debug.DrawLine(previousBulletPosition, transform.position);
 			if (Physics.Linecast(previousBulletPosition, transform.position, out hit))
 			{
-				Debug.Log (hit.transform.name);
-
-				GameObject decal = Instantiate<GameObject>(decalPrefab);
-				Vector3 moveDecalOverTarget = hit.normal * 0.01f;
-				decal.transform.position = hit.point + moveDecalOverTarget;
-				decal.transform.rotation = Quaternion.LookRotation(-hit.normal);
-				
+				if (hit.collider.sharedMaterial != null)
+				{
+					string materialName = hit.collider.sharedMaterial.name;
+					switch (materialName)
+					{
+						case "Metal":
+							SpawnDecal(hit, metalHitEffect);
+							break;
+						case "Sand":
+							SpawnDecal(hit, sandHitEffect);
+							break;
+						case "Stone":
+							SpawnDecal(hit, stoneHitEffect);
+							break;
+						case "Wood":
+							SpawnDecal(hit, woodHitEffect);
+							break;
+						case "Meat":
+							SpawnDecal(hit, meatHitEffects[Random.Range(0, meatHitEffects.Length)]);
+							break;
+					}
+				}
 				Destroy(this.gameObject);				
-				Destroy (decal, decalDeathTime);
 			}
 			previousBulletPosition = transform.position;
-			Destroy(this.gameObject, bulletDeathTime);
 		}
+
+		void SpawnDecal (RaycastHit hit, GameObject prefab)
+		{
+			GameObject spawnDecal = GameObject.Instantiate(prefab, hit.point, Quaternion.LookRotation(hit.normal));
+			spawnDecal.transform.SetParent(hit.collider.transform);
+			Destroy(spawnDecal.gameObject, decalDeathTime);
+		}
+
+		#endregion
 	}
 }

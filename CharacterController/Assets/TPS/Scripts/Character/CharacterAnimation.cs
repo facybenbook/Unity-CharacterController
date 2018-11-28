@@ -25,6 +25,7 @@ namespace TPS.CharacterController
 			animator.SetBool (Statics.Sprint, characterStatus.isSprint);
 			animator.SetBool (Statics.Aiming, characterStatus.isAiming);
 			animator.SetBool (Statics.Weapon, characterStatus.isWeapon);
+			animator.SetBool (Statics.Moving, characterStatus.isMoving);
 
 			if (!characterStatus.isAiming)
 			{

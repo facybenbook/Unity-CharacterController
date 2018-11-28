@@ -53,6 +53,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\DecalDestroyer.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\ExtinguishableFire.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\GunAim.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\GunShoot.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\ParticleCollision.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\ParticleExamples.cs" />
+     <Compile Include="Assets\TPS\Effects\Shared\Scripts\ParticleMenu.cs" />
      <Compile Include="Assets\TPS\Scripts\Camera\CameraHandler.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\CharacterAnimation.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\CharacterIK.cs" />
@@ -67,6 +74,7 @@
      <Compile Include="Assets\TPS\Scripts\UI\Crosshair.cs" />
      <Compile Include="Assets\TPS\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\TPS\Scripts\Weapon\Weapon.cs" />
+     <None Include="Assets\TPS\Effects\Shared\Shaders\SurfaceShader_VC.shader" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/ProgrammingCode/Git_rep/Unity_CharacterController/CharacterController/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

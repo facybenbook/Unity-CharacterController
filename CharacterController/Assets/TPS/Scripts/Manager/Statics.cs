@@ -9,6 +9,7 @@ public static class Statics
 	public const string Sprint = "Sprint";
 	public const string Weapon = "Weapon";
 	public const string Speed = "Speed";
+	public const string Moving = "Moving";
 	#endregion Animator Parameters
 
 	#region Input

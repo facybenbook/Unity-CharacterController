@@ -97,6 +97,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decalPrefab: {fileID: 1542600239995592, guid: 560a6f5cf26ca77458b9021948fad76a,
     type: 2}
+  metalHitEffect: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
+    type: 2}
+  sandHitEffect: {fileID: 1000012142692022, guid: a475880e7da0e9548aa05cb7933752cd,
+    type: 2}
+  stoneHitEffect: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
+    type: 2}
+  woodHitEffect: {fileID: 1000011190285628, guid: beb3acff7ab73944fb8f470f24d74ed3,
+    type: 2}
+  meatHitEffects:
+  - {fileID: 1000013169864706, guid: e5a3d6da48298a0458c1990f58c27069, type: 2}
+  - {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 2}
   decalDeathTime: 5
   bulletDeathTime: 0.5
-  speed: 5
+  speed: 300

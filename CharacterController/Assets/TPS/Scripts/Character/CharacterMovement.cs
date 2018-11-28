@@ -98,7 +98,6 @@ namespace TPS.CharacterController
 			origin.y += 0.6f;
 			Vector3 directionBottom = -Vector3.up;
 
-			// Get RaycastHit Information 
 			RaycastHit hit;
 			if (Physics.Raycast(origin, directionBottom, out hit, groundChekerRadius))
 			{

@@ -7,6 +7,7 @@ namespace TPS.Configurations
 	{
 		[Header("Character States")]
 		public bool isAiming;
+		public bool isMoving;
 		public bool isSprint;
 		public bool isGround;
 		public bool isWeapon;
