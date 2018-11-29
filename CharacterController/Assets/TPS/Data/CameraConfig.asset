@@ -21,12 +21,12 @@ MonoBehaviour:
   shiftToTheLeftSpeed: 1
   minYViewAngle: -15
   maxYViewAngle: 70
-  minYAimingViewAngle: -37
-  maxYAimingViewAngle: 70
+  minYAimingViewAngle: -35
+  maxYAimingViewAngle: 35
   normalZPos: -1.72
   normalXPos: 1
   normalYPos: 1.4
   lookFromLeft: 0
-  aimYPos: 1.96
-  aimXPos: 0.31
-  aimZPos: -0.36
+  aimYPos: 1.7
+  aimXPos: 0.4
+  aimZPos: -0.8

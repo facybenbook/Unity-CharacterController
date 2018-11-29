@@ -20,7 +20,7 @@ namespace TPS.CharacterController
 		public float shoulderHeightPosition = 1.4f;
 
 		public bool canAim;
-		public float distanceToObstacle;
+		private float distanceToObstacle;
 		#endregion
 
 		private void Awake() 
@@ -48,14 +48,15 @@ namespace TPS.CharacterController
 				characterStatus.isMoving = false;
 			}
 
-			// if (!debugAiming)
-			// {
-			// 	characterStatus.isAiming = Input.GetMouseButton (Statics.Mouse_rightClick);
-			// }
-			// else
-			// {
-			// 	characterStatus.isAiming = isAiming;
-			// }
+			if (!debugAiming)
+			{
+				characterStatus.isAiming = Input.GetMouseButton (Statics.Mouse_rightClick);
+			}
+			else
+			{
+				characterStatus.isAiming = true;
+				characterStatus.isMoving = true;
+			}
 
 			if (Input.GetMouseButtonDown(Statics.Mouse_leftClick) 
 				&& Input.GetMouseButton(Statics.Mouse_rightClick) 

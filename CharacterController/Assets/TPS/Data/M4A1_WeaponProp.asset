@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   righHandPosition: {x: 0.16, y: -0.09, z: 0.3}
   righHandRotation: {x: -22.5, y: 3.5, z: -90}
-  weaponPrefab: {fileID: 1825957205352760, guid: 891c1b5509240eb4487a24ffb86c02d5,
+  weaponPrefab: {fileID: 1875034365147114, guid: 891c1b5509240eb4487a24ffb86c02d5,
     type: 2}

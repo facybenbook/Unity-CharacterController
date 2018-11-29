@@ -43,6 +43,7 @@ namespace TPS.CharacterController
 
 		[Header("Ik Hands Weight")]
 		public float leftHandWeight = 1f;
+		public float leftHandWeightSpeed = 0.5f;
 		public float rightHandWeight = 1f;
 		public float rightHandWeightSpeed = 0.5f;
 		#endregion
@@ -71,8 +72,8 @@ namespace TPS.CharacterController
 			leftHand.name = "LeftHand";
 			leftHand.parent = aimPivot;
 
-			rightHand.localPosition = characterInventory.firstWeapon.righHandPosition;
-			Quaternion rotationRightHand = Quaternion.Euler(characterInventory.firstWeapon.righHandRotation);
+			rightHand.localPosition = characterInventory.secondWeapon.righHandPosition;
+			Quaternion rotationRightHand = Quaternion.Euler(characterInventory.secondWeapon.righHandRotation);
 			rightHand.localRotation = rotationRightHand;
 		}
 		
@@ -81,20 +82,23 @@ namespace TPS.CharacterController
 			leftHandRotation = leftHandTargetPosition.rotation;
 			leftHand.position = leftHandTargetPosition.position;
 
-			rightHand.localPosition = characterInventory.firstWeapon.righHandPosition;
-			Quaternion rotationRightHand = Quaternion.Euler(characterInventory.firstWeapon.righHandRotation);
-			rightHand.localRotation = rotationRightHand; 
+			rightHand.localPosition = characterInventory.secondWeapon.righHandPosition;
+			Quaternion rotationRightHand = Quaternion.Euler(characterInventory.secondWeapon.righHandRotation);
+			rightHand.localRotation = rotationRightHand;
 			
 			if (characterStatus.isAiming)
 			{
 				rightHandWeight += Time.deltaTime * rightHandWeightSpeed;
+				// leftHandWeight += Time.deltaTime * leftHandWeightSpeed;
 			}
 			else
 			{
 				rightHandWeight -= Time.deltaTime * rightHandWeightSpeed;
+				// leftHandWeight -= Time.deltaTime * leftHandWeightSpeed;
 			}
 
 			rightHandWeight = Mathf.Clamp01(rightHandWeight);
+			// leftHandWeight = Mathf.Clamp01(leftHandWeight);
 
 		}
 

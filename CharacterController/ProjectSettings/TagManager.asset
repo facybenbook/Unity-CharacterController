@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CameraPivot
+  - TargetLook
+  - CameraHolder
   layers:
   - Default
   - TransparentFX

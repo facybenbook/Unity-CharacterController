@@ -22,13 +22,13 @@ namespace TPS.CharacterController
 		private void Update ()
 		{
 			characterMovement.RunUpdate ();
+			characterInput.InputUpdate ();
 		}
 
 		public void FixedUpdate ()
 		{
 			characterMovement.MoveUpdate ();
 			characterAnimation.AnimationUpdate ();
-			characterInput.InputUpdate ();
 		}
 	}
 }

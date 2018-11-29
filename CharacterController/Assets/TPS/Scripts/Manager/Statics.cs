@@ -22,4 +22,8 @@ public static class Statics
 
 	public const string Shift = "Fire3";
 	#endregion
+
+	#region Tags
+	public const string TargetLook = "TargetLook";
+	#endregion
 }

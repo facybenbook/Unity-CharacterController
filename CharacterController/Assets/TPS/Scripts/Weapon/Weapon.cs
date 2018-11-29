@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace TPS.WeaponController
 {
+	[RequireComponent(typeof(AudioSource))]
 	public class Weapon : MonoBehaviour 
 	{
 		#region References
@@ -37,6 +38,8 @@ namespace TPS.WeaponController
 
 		private void Awake() 
 		{
+			cameraMain = Camera.main.gameObject;
+			targetLook = GameObject.FindGameObjectWithTag(Statics.TargetLook).transform;
 			audioSource = GetComponent<AudioSource> ();
 		}
 
@@ -64,9 +67,11 @@ namespace TPS.WeaponController
 		public void Shoot()
 		{
 			GameObject bulletClone = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
-			audioSource.PlayOneShot(shootClip);
-			muzzleFlash.Play();
-			
+			if (audioSource != null)
+			{
+				audioSource.PlayOneShot(shootClip);
+				muzzleFlash.Play();
+			}
 			AddBulletShell();
 		}
 

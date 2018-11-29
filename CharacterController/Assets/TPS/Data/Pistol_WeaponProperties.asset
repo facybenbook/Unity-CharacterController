@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f2c46db29278d48aeb73e9cc778440, type: 3}
+  m_Name: Pistol_WeaponProperties
+  m_EditorClassIdentifier: 
+  righHandPosition: {x: 0.15, y: -0.03, z: 0.28}
+  righHandRotation: {x: -10, y: 3.83, z: -90}
+  weaponPrefab: {fileID: 1753490709557832, guid: 1a39f162de08a8e439135bfe07bf237b,
+    type: 2}
