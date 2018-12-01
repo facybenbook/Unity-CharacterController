@@ -492,7 +492,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -595,6 +595,7 @@ MonoBehaviour:
   shootPoint: {fileID: 4323681264049186}
   decal: {fileID: 0}
   bullet: {fileID: 1740542357035050, guid: 39a3e0742d0ddb24cb6710b3beac0e31, type: 2}
+  hitMarker: {fileID: 0}
   shell: {fileID: 1370761017938374, guid: c736f2999dc44dd428e9dd2112e4c98f, type: 2}
   shellPosition: {fileID: 4011368092847904}
   shellFlightRadiusMin: 80
@@ -624,6 +625,7 @@ MonoBehaviour:
   meatHitEffects:
   - {fileID: 1000013169864706, guid: e5a3d6da48298a0458c1990f58c27069, type: 2}
   - {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 2}
+  hitMarker: {fileID: 0}
   decalDeathTime: 5
   bulletDeathTime: 0.5
   speed: 300

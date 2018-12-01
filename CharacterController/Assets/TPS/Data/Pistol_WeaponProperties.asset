@@ -15,3 +15,4 @@ MonoBehaviour:
   righHandRotation: {x: -10, y: 3.83, z: -90}
   weaponPrefab: {fileID: 1753490709557832, guid: 1a39f162de08a8e439135bfe07bf237b,
     type: 2}
+  damage: 10

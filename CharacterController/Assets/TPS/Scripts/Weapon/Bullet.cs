@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TPS.Enemy;
+using TPS.UI;
 using UnityEngine;
 
 namespace TPS.WeaponController
@@ -16,6 +18,10 @@ namespace TPS.WeaponController
 		public GameObject stoneHitEffect;
 		public GameObject woodHitEffect;
 		public GameObject[] meatHitEffects;
+
+		public HitMarker hitMarker;
+		public int damage = 1;
+
 		#endregion
 
 		#region Variables
@@ -72,10 +78,12 @@ namespace TPS.WeaponController
 							SpawnDecal(hit, woodHitEffect);
 							break;
 						case "Meat":
+							Meat(hit);
 							SpawnDecal(hit, meatHitEffects[Random.Range(0, meatHitEffects.Length)]);
 							break;
 					}
 				}
+				hitMarker.ShowHitMarker();
 				Destroy(this.gameObject);				
 			}
 			previousBulletPosition = transform.position;
@@ -86,6 +94,14 @@ namespace TPS.WeaponController
 			GameObject spawnDecal = GameObject.Instantiate(prefab, hit.point, Quaternion.LookRotation(hit.normal));
 			spawnDecal.transform.SetParent(hit.collider.transform);
 			Destroy(spawnDecal.gameObject, decalDeathTime);
+		}
+
+		public void Meat (RaycastHit hit)
+		{
+			if(hit.transform.GetComponent<HitPosition>() != null)
+			{
+				hit.transform.GetComponent<HitPosition>().Damage(damage);
+			}
 		}
 
 		#endregion

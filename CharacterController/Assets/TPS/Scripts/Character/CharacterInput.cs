@@ -71,7 +71,11 @@ namespace TPS.CharacterController
 			Debug.DrawLine(transform.position + transform.up * shoulderHeightPosition, targetLook.position, Color.yellow);
 
 			distanceToObstacle = Vector3.Distance(transform.position + transform.up * shoulderHeightPosition, targetLook.position);
-			canAim = distanceToObstacle > 1.5f;
+			
+			if (distanceToObstacle > 1.6f)
+				canAim = true;
+			else
+				canAim = false;					
 
 		}
 	}

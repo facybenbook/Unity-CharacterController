@@ -67,11 +67,14 @@
      <Compile Include="Assets\TPS\Scripts\Character\CharacterInventory.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\CharacterMovement.cs" />
      <Compile Include="Assets\TPS\Scripts\Character\Controller.cs" />
+     <Compile Include="Assets\TPS\Scripts\Enemy\EnemyStat.cs" />
+     <Compile Include="Assets\TPS\Scripts\Enemy\HitPosition.cs" />
      <Compile Include="Assets\TPS\Scripts\Manager\Statics.cs" />
      <Compile Include="Assets\TPS\Scripts\Properties\CameraConfig.cs" />
      <Compile Include="Assets\TPS\Scripts\Properties\CharacterStatus.cs" />
      <Compile Include="Assets\TPS\Scripts\Properties\WeaponProperties.cs" />
      <Compile Include="Assets\TPS\Scripts\UI\Crosshair.cs" />
+     <Compile Include="Assets\TPS\Scripts\UI\HitMarker.cs" />
      <Compile Include="Assets\TPS\Scripts\Weapon\Bullet.cs" />
      <Compile Include="Assets\TPS\Scripts\Weapon\Weapon.cs" />
      <None Include="Assets\TPS\Effects\Shared\Shaders\SurfaceShader_VC.shader" />

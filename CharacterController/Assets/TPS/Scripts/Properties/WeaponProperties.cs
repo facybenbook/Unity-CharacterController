@@ -10,5 +10,6 @@ namespace TPS.Configurations
 		public Vector3 righHandPosition;
 		public Vector3 righHandRotation;
 		public GameObject weaponPrefab;
+		public int damage;
 	}
 }

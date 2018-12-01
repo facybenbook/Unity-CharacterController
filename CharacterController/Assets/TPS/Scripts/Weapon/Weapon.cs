@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TPS.Configurations;
+using TPS.UI;
 using UnityEngine;
 
 namespace TPS.WeaponController
@@ -27,6 +28,9 @@ namespace TPS.WeaponController
 		public Transform shootPoint;
 		public GameObject decal;
 		public GameObject bullet;
+
+		[Header("UI")]
+		public HitMarker hitMarker;
 
 		[Header("Bullet Shell Parameters")]
 		public GameObject shell;
@@ -67,6 +71,9 @@ namespace TPS.WeaponController
 		public void Shoot()
 		{
 			GameObject bulletClone = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
+			// Add HitMarker to the weapon
+			bulletClone.GetComponent<Bullet>().hitMarker = hitMarker;
+			bulletClone.GetComponent<Bullet>().damage = weaponProperties.damage;
 			if (audioSource != null)
 			{
 				audioSource.PlayOneShot(shootClip);
