@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,15 @@ namespace Platformer.Player.Controller
 		#region References
 		BoxCollider2D _collider;
 		RaycastOrigins raycastOrigins;
+		public CollisionInfo collisionInfo;
+		public LayerMask collisionMask;
 		#endregion
 
 		#region Variables
 		private const float skinWidth = 0.015f;
 
 		public int horizontalRayCount = 4;
-		public int verticalRayCount = 4;
+        public int verticalRayCount = 4;
 
 		private float horizontalRaySpacing;
 		private float verticalRaySpacing; 
@@ -25,26 +28,67 @@ namespace Platformer.Player.Controller
 		void Start () 
 		{
 			_collider = GetComponent<BoxCollider2D> ();
+			CalculateRaySpacing ();
+		}
+		
+        public void Move(Vector3 velocity)
+        {
+			UpdateRaycastOrigins ();
+
+			if (velocity.y != 0)
+			{
+				VerticalCollisions(ref velocity);
+			}
+			if (velocity.x != 0)
+			{
+				HorizontalCollisions(ref velocity);
+			}
+
+            transform.Translate(velocity);
+        }
+
+		void HorizontalCollisions(ref Vector3 velocity)
+		{
+			float directionX = Mathf.Sign(velocity.x);
+			float rayLength = Mathf.Abs(velocity.x) + skinWidth;
+
+			for (int i = 0; i < horizontalRayCount; i++)
+			{
+				Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+				rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+
+				Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+
+				if (hit)
+				{
+					velocity.x = (hit.distance - skinWidth) * directionX;
+					rayLength = hit.distance;
+				}
+			}
 		}
 
-		private void Update() 
+		void VerticalCollisions(ref Vector3 velocity)
 		{
-			UpdateRaycastOrigins ();
-			CalculateRaySpacing ();
+			float directionY = Mathf.Sign(velocity.y);
+			float rayLength = Mathf.Abs(velocity.y) + skinWidth;
 
 			for (int i = 0; i < verticalRayCount; i++)
 			{
-				// To top
-				Debug.DrawRay(raycastOrigins.topLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * 2, Color.red);
-				// To bottom
-				Debug.DrawRay(raycastOrigins.bottomLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * -2, Color.red);
-				// Ro right
-				Debug.DrawRay(raycastOrigins.topRight + -Vector2.up * horizontalRaySpacing * i, Vector2.right * 2, Color.red);
-				// To left
-				Debug.DrawRay(raycastOrigins.topLeft + -Vector2.up * horizontalRaySpacing * i, Vector2.right * -2, Color.red);
-			}	
+				Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
+				rayOrigin += Vector2.right * ( verticalRaySpacing * i + velocity.x); 
+				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+
+				Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+
+				if (hit)
+				{
+					velocity.y = (hit.distance - skinWidth) * directionY;
+					rayLength = hit.distance;
+				}
+			}
 		}
-		
+
 		void UpdateRaycastOrigins ()
 		{
 			Bounds bounds = _collider.bounds;
@@ -62,7 +106,7 @@ namespace Platformer.Player.Controller
 			Bounds bounds = _collider.bounds;
 			bounds.Expand(skinWidth * -2);
 
-			// Fix value of the ray count
+			// Fix value of the ray's count
 			horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);
 			verticalRayCount = Mathf.Clamp(verticalRayCount, 2, int.MaxValue);
 
@@ -70,12 +114,28 @@ namespace Platformer.Player.Controller
 			horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
 			verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
 
+			// Debug.Log(bounds.size.y);
+			// Debug.Log(bounds.size.x);
+			// Debug.Log(horizontalRaySpacing);
+			// Debug.Log(verticalRaySpacing);
 		}
 		
 		struct RaycastOrigins
 		{
 			public Vector2 topLeft, topRight;
 			public Vector2 bottomLeft, bottomRight;
+		}
+
+		public struct CollisionInfo
+		{
+			public bool above, below;
+			public bool left, right;
+
+			public void Reset()
+			{
+				above = below = false;
+				left = right = false;
+			}
 		}
 	}
 }
