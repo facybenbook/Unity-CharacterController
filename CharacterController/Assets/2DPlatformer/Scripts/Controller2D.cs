@@ -31,9 +31,11 @@ namespace Platformer.Player.Controller
 			CalculateRaySpacing ();
 		}
 		
+		#region Controller2D Methods
         public void Move(Vector3 velocity)
         {
 			UpdateRaycastOrigins ();
+			collisionInfo.Reset();
 
 			if (velocity.y != 0)
 			{
@@ -64,6 +66,9 @@ namespace Platformer.Player.Controller
 				{
 					velocity.x = (hit.distance - skinWidth) * directionX;
 					rayLength = hit.distance;
+
+					collisionInfo.left = (directionX == -1);
+					collisionInfo.right = (directionX == 1);
 				}
 			}
 		}
@@ -85,6 +90,9 @@ namespace Platformer.Player.Controller
 				{
 					velocity.y = (hit.distance - skinWidth) * directionY;
 					rayLength = hit.distance;
+
+					collisionInfo.below = (directionY == -1);
+					collisionInfo.above = (directionY == 1);
 				}
 			}
 		}
@@ -119,6 +127,7 @@ namespace Platformer.Player.Controller
 			// Debug.Log(horizontalRaySpacing);
 			// Debug.Log(verticalRaySpacing);
 		}
+		#endregion
 		
 		struct RaycastOrigins
 		{
