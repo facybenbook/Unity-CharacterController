@@ -18,7 +18,7 @@ namespace Platformer.Player.Controller
 		[SerializeField] float moveSpeed = 6f;
 		[SerializeField] float jumpHeight = 4f;
 		[SerializeField] float timeToJumpApex = 0.4f;
-		
+
 		[SerializeField] float accelerationTimeAirborne = 0.2f;
 		[SerializeField] float accelerationTimeGrounded = 0.1f;
 
@@ -31,7 +31,7 @@ namespace Platformer.Player.Controller
 		void Start () 
 		{
 			controller = GetComponent<Controller2D> ();
-
+			
 			gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 			jumpVelocity = Mathf.Abs(gravity * timeToJumpApex);
 
