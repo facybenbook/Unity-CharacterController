@@ -2,43 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Platformer.Controller;
 
 namespace Platformer.Player.Controller
 {
-	[RequireComponent(typeof(BoxCollider2D))]
-	public class Controller2D : MonoBehaviour 
+	public class Controller2D : RaycastController
 	{
 		#region References
-		BoxCollider2D _collider;
-		RaycastOrigins raycastOrigins;
 		public CollisionInfo collisionInfo;
-		public LayerMask collisionMask;
 		#endregion
 
 		#region Variables
-		private const float skinWidth = 0.015f;
-
 		public float maxClimbAngle = 80f;
-
-		public int horizontalRayCount = 4;
-        public int verticalRayCount = 4;
-
-		private float horizontalRaySpacing;
-		private float verticalRaySpacing; 
+		public float maxDescendAngle = 80f;
 		#endregion
 
-		void Start () 
+		public override void Start() 
 		{
-			_collider = GetComponent<BoxCollider2D> ();
-			CalculateRaySpacing ();
+			base.Start();	
 		}
-		
+
 		#region Controller2D Methods
         public void Move(Vector3 velocity)
         {
 			UpdateRaycastOrigins ();
 			collisionInfo.Reset();
 
+			if (velocity.y < 0)
+			{
+				DescendSlope(ref velocity);
+			}
 			if (velocity.y != 0)
 			{
 				VerticalCollisions(ref velocity);
@@ -51,7 +44,7 @@ namespace Platformer.Player.Controller
             transform.Translate(velocity);
         }
 
-		void HorizontalCollisions(ref Vector3 velocity)
+        void HorizontalCollisions(ref Vector3 velocity)
 		{
 			float directionX = Mathf.Sign(velocity.x);
 			float rayLength = Mathf.Abs(velocity.x) + skinWidth;
@@ -70,6 +63,11 @@ namespace Platformer.Player.Controller
 
 					if (i == 0 && slopeAngle <= maxClimbAngle)
 					{
+						if (collisionInfo.descendingSlope)
+						{
+							collisionInfo.descendingSlope = false;
+							velocity = collisionInfo.velocityOld;
+						}
 						float distanceToSlopeStart = 0f;
 
 						if (slopeAngle != collisionInfo.slopeAngleOld)
@@ -127,6 +125,26 @@ namespace Platformer.Player.Controller
 					collisionInfo.below = (directionY == -1);
 					collisionInfo.above = (directionY == 1);
 				}
+
+				if (collisionInfo.climbingSlope)
+				{
+					float directionX = Mathf.Sign(velocity.x);
+					rayLength = Mathf.Abs(velocity.x) + skinWidth;
+					rayOrigin = ((directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight) + Vector2.up * velocity.y;
+
+					hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX,rayLength, collisionMask);
+
+					if (hit)
+					{
+						float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+						if (slopeAngle != collisionInfo.slopeAngle)
+						{
+							velocity.x = (hit.distance - skinWidth) * directionX;
+							collisionInfo.slopeAngle = slopeAngle;
+						}
+					}
+
+				}
 			}
 		}
 
@@ -146,57 +164,56 @@ namespace Platformer.Player.Controller
 			}
         }
 
-		void UpdateRaycastOrigins ()
-		{
-			Bounds bounds = _collider.bounds;
-			bounds.Expand(skinWidth * -2);
+		 private void DescendSlope(ref Vector3 velocity)
+        {
+            float directionX = Mathf.Sign(velocity.x);
+			Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
+			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, Mathf.Infinity, collisionMask);
 
-			// Get each side of the player's bounds and store them in the RaycastOrigins container
-			raycastOrigins.bottomLeft = new Vector2 (bounds.min.x, bounds.min.y);
-			raycastOrigins.bottomRight = new Vector2 (bounds.max.x, bounds.min.y);
-			raycastOrigins.topLeft = new Vector2 (bounds.min.x, bounds.max.y);
-			raycastOrigins.topRight = new Vector2 (bounds.max.x, bounds.max.y);
-		}
+			if (hit)
+			{
+				float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+				if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
+				{
+					if (Mathf.Sign(hit.normal.x) == directionX)
+					{
+						if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x))
+						{
+							float moveDistance = Mathf.Abs(velocity.x);
+							float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
+							
+							velocity.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x);
+							velocity.y -= descendVelocityY;
 
-		void CalculateRaySpacing ()
-		{
-			Bounds bounds = _collider.bounds;
-			bounds.Expand(skinWidth * -2);
-
-			// Fix value of the ray's count
-			horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);
-			verticalRayCount = Mathf.Clamp(verticalRayCount, 2, int.MaxValue);
-
-			// Get Spacing by using size of the player's bounds 
-			horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
-			verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
-
-			// Debug.Log(bounds.size.y);
-			// Debug.Log(bounds.size.x);
-			// Debug.Log(horizontalRaySpacing);
-			// Debug.Log(verticalRaySpacing);
-		}
+							collisionInfo.slopeAngle = slopeAngle;
+							collisionInfo.descendingSlope = true;
+							collisionInfo.below = true;
+						}
+					}
+				} 
+			}
+        }
 		#endregion
-		
-		struct RaycastOrigins
-		{
-			public Vector2 topLeft, topRight;
-			public Vector2 bottomLeft, bottomRight;
-		}
 
 		public struct CollisionInfo
 		{
+			public Vector3 velocityOld;
+
 			public bool above, below;
 			public bool left, right;
 			public bool climbingSlope;
+            public bool descendingSlope;
 
 			public float slopeAngle, slopeAngleOld;
 
-			public void Reset()
+            public void Reset()
 			{
+				velocityOld = Vector3.zero;
+
 				above = below = false;
 				left = right = false;
 				climbingSlope = false;
+				descendingSlope = false;
 
 				slopeAngleOld = slopeAngle;
 				slopeAngle = 0;

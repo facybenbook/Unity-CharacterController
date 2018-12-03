@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\2DPlatformer\Scripts\Controller2D.cs" />
+     <Compile Include="Assets\2DPlatformer\Scripts\PlatformController.cs" />
      <Compile Include="Assets\2DPlatformer\Scripts\Player.cs" />
+     <Compile Include="Assets\2DPlatformer\Scripts\RaycastController.cs" />
      <Compile Include="Assets\TPS\Effects\Shared\Scripts\DecalDestroyer.cs" />
      <Compile Include="Assets\TPS\Effects\Shared\Scripts\ExtinguishableFire.cs" />
      <Compile Include="Assets\TPS\Effects\Shared\Scripts\GunAim.cs" />
