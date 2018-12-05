@@ -2,6 +2,7 @@
 using TPS.CameraController;
 using TPS.Configurations;
 using TPS.WeaponController;
+using TPS.Managers;
 
 namespace TPS.CharacterController
 {

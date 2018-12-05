@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TPS.Configurations;
 using TPS.UI;
 using UnityEngine;
+using TPS.Managers;
 
 namespace TPS.WeaponController
 {
@@ -53,7 +54,7 @@ namespace TPS.WeaponController
 			Vector3 origin = shootPoint.position;
 			Vector3 direction = targetLook.position;
 
-			RaycastHit hit;
+			//RaycastHit hit;
 			// decal.SetActive(false);
 			Debug.DrawLine(origin, direction, Color.red);
 			Debug.DrawLine(cameraMain.transform.position, direction, Color.green);

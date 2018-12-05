@@ -9,6 +9,7 @@ TagManager:
   - CameraHolder
   - Ground
   - Obstacle
+  - Coin
   layers:
   - Default
   - TransparentFX

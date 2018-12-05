@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TPS.CameraController;
 using TPS.Configurations;
+using TPS.Managers;
 
 namespace TPS.CharacterController
 {
