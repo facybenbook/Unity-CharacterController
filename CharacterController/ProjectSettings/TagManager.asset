@@ -10,6 +10,8 @@ TagManager:
   - Ground
   - Obstacle
   - Coin
+  - JumpPad
+  - Teleport
   layers:
   - Default
   - TransparentFX

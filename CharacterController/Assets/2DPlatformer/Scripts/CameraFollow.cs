@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Platformer.Camera.Controller
+namespace Platformer.Camera
 {
 	public class CameraFollow : MonoBehaviour
 	{

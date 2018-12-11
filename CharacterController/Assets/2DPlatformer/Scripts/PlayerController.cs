@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Platformer.Managers;
 using UnityEngine;
 
-namespace Platformer.Player.Controller
+namespace Platformer.Player
 {
 	[RequireComponent (typeof (CharacterController))]
 	public class PlayerController : MonoBehaviour
@@ -23,11 +23,11 @@ namespace Platformer.Player.Controller
 		private Vector3 lastMotion; // save an old moving direction trajectory for the double jump
 
 		[SerializeField] private float moveSpeed = 7.0f;
-		[SerializeField] [Range (0, 1)] private float moveSmoothJumpSpeed = 0.5f;
+		[SerializeField] [Range (0, 1)] private float smoothJumpSpeed = 0.5f;
 		[SerializeField] private float gravity = 25.0f;
 		[SerializeField] private float jumpForce = 10f;
 		[SerializeField] private float doubleJumpForce = 15f;
-		private const float skinWidth = 0.05f;
+		private const float skinWidth = 0.1f;
 		private bool canDoDoubleJump;
 		#endregion
 
@@ -64,10 +64,17 @@ namespace Platformer.Player.Controller
 					// TODO: collect coin
 					Destroy (hit.gameObject);
 					break;
+				case Statics.JumpPad:
+					canDoDoubleJump = true;
+					break;
+				case Statics.Teleport:
+					transform.position = hit.transform.GetChild (0).position;
+					break;
 				default:
 					break;
 			}
 		}
+
 		#endregion
 
 		#region Player Controller Methods
@@ -107,7 +114,9 @@ namespace Platformer.Player.Controller
 				verticalVelocity -= gravity * Time.deltaTime;
 				Debug.Log ("Is Moving");
 				// Continue to move by previous moving trajectory 
+				//moveVector.x = lastMotion.x;
 				moveVector.x = lastMotion.x;
+				moveVector.x = horizontalVelocity * smoothJumpSpeed;
 			}
 
 			moveVector.y = verticalVelocity;
@@ -120,19 +129,24 @@ namespace Platformer.Player.Controller
 		private bool IsControllerGrounded ()
 		{
 			Vector3 leftRayStartPos;
+			Vector3 middleRayStartPos;
 			Vector3 rightRayStartPos;
 
 			leftRayStartPos = characterController.bounds.center;
+			middleRayStartPos = characterController.bounds.center;
 			rightRayStartPos = characterController.bounds.center;
 
 			leftRayStartPos.x -= characterController.bounds.extents.x;
 			rightRayStartPos.x += characterController.bounds.extents.x;
 
 			Debug.DrawRay (leftRayStartPos, -Vector3.up, Color.red);
+			Debug.DrawRay (middleRayStartPos, -Vector3.up, Color.red);
 			Debug.DrawRay (rightRayStartPos, -Vector3.up, Color.red);
 
-			float distanceToGround = characterController.height * 0.5f + skinWidth;
-			if (Physics.Raycast (leftRayStartPos, Vector3.down, distanceToGround))
+			float distanceToGround = (characterController.height * 0.5f) + skinWidth;
+			if (Physics.Raycast (leftRayStartPos, Vector3.down, distanceToGround)
+				|| Physics.Raycast (middleRayStartPos, Vector3.down, distanceToGround)
+				|| Physics.Raycast (rightRayStartPos, Vector3.down, distanceToGround))
 			{
 				return true;
 			}

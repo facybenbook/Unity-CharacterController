@@ -10,6 +10,8 @@
 
 		#region Tags
 		public const string Coin = "Coin";
+		public const string JumpPad = "JumpPad";
+		public const string Teleport = "Teleport";
 		#endregion
 	}
 }
